@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T.Y.M | Robotics & Tech.</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #e8efcd;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .cyber-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0, 255, 127, 0.1) 0%, transparent 50%);
+      animation: cyberPulse 6s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes cyberPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 0;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 3.5rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff7f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glowText 2s ease-in-out infinite alternate;
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    @keyframes glowText {
+      from { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8)); }
+      to { filter: drop-shadow(0 0 30px rgba(255, 0, 255, 0.8)); }
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      opacity: 0.8;
+      animation: typewriter 3s steps(30) 1s both;
+    }
+
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .nav-panel {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      padding: 15px 30px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-btn:hover::before {
+      left: 100%;
+    }
+
+    .nav-btn:hover {
+      border-color: #ff00ff;
+      color: #ff00ff;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .content-section {
+      display: none;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cyber-card {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px 0;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      animation: rotate 6s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cyber-card:hover::before {
+      opacity: 1;
+    }
+
+    .cyber-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+      border-color: #00ffff;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .skill-item {
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+      background: rgba(255, 0, 255, 0.1);
+      border-color: #ff00ff;
+      transform: scale(1.05);
+    }
+
+    .skill-level {
+      width: 100%;
+      height: 8px;
+      background: rgba(0, 255, 255, 0.2);
+      border-radius: 4px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      border-radius: 4px;
+      animation: fillProgress 2s ease-in-out;
+    }
+
+    @keyframes fillProgress {
+      from { width: 0%; }
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .project-card {
+      background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 255, 255, 0.1));
+      border: 1px solid rgba(0, 255, 127, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #00ff7f, #00ffff);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 255, 127, 0.3);
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #00ffff;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      resize: vertical;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #ff00ff;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+      background: rgba(0, 255, 255, 0.15);
+    }
+
+    .form-input::placeholder {
+      color: rgba(0, 255, 255, 0.6);
+    }
+
+    .form-input:hover {
+      border-color: rgba(0, 255, 255, 0.5);
+      background: rgba(0, 255, 255, 0.15);
+    }
+
+    /* Fix for textarea specifically */
+    textarea.form-input {
+      min-height: 120px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #00ffff, #ff00ff);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 255, 255, 0.5);
+    }
+
+    .cyber-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .line {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+      animation: moveLine 4s linear infinite;
+    }
+
+    .line:nth-child(1) {
+      top: 20%;
+      height: 1px;
+      width: 100%;
+      animation-delay: 0s;
+    }
+
+    .line:nth-child(2) {
+      top: 60%;
+      height: 1px;
+      width: 100%;
+      animation-delay: 2s;
+    }
+
+    .line:nth-child(3) {
+      left: 30%;
+      width: 1px;
+      height: 100%;
+      animation: moveLineVertical 5s linear infinite;
+    }
+
+    @keyframes moveLine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes moveLineVertical {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    .matrix-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .matrix-char {
+      position: absolute;
+      color: rgba(0, 255, 255, 0.3);
+      font-size: 14px;
+      animation: matrixFall 3s linear infinite;
+    }
+
+    @keyframes matrixFall {
+      0% { transform: translateY(-100vh); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .logo { font-size: 2.5rem; }
+      .nav-panel { flex-direction: column; align-items: center; }
+      .nav-btn { width: 200px; }
+      .project-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="cyber-bg"></div>
+<div class="cyber-lines">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+</div>
+<div class="matrix-rain" id="matrixRain"></div>
+
+<div class="container">
+  <header>
+    <h1 class="logo">Full-Stack Developer</h1>
+    <h1 class="logo">Robotics & Electronics</h1>
+    <p class="tagline">{ ROBOTICS & TECH ENTHUSIAST }</p>
+  </header>
+
+  <nav class="nav-panel">
+    <button class="nav-btn" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('about')">About</button>
+    <button class="nav-btn" onclick="showSection('skills')">Skills</button>
+    <button class="nav-btn" onclick="showSection('projects')">Projects</button>
+    <button class="nav-btn" onclick="showSection('contact')">Contact</button>
+  </nav>
+
+  <main>
+    <section id="home" class="content-section active">
+      <div class="cyber-card">
+        <h2>Welcome to My Space!</h2>
+        <p>I’m <strong>Tuğba Yalvaç Mohammed</strong> — a passionate <strong>Robotics and Electronics Hobbyist</strong>, dedicated <strong>Full-Stack Developer</strong>, and curious lifelong learner. I love bringing ideas to life through Arduino-based projects, robotic vehicles, embedded systems, and practical web applications.</p>
+        <br>
+        <p>Balancing my roles as a mother, student, and tech creator, I’ve built interactive projects like <strong>Wheels N' Works</strong>, multifunction robots, and educational tools designed to inspire others to explore technology in creative ways.</p>
+        <br>
+        <p>I’m currently exploring IoT devices, sensor-based systems, and robotic automation, while developing my skills in modern web technologies. Alongside building projects, I have a growing interest in <strong>academic research and writing articles</strong> on topics related to technology, innovation, and education.</p>
+        <br>
+        <p>When I’m not coding or prototyping, you’ll find me reading, enjoying rainy days with a good book and a cup of tea, or experimenting with new ideas. 🌿</p>
+        <br>
+        <p>Let’s connect and share exciting ideas, projects, and knowledge together!</p>
+        <br>
+        <h2>Connect With Me</h2>
+        <p>Explore my projects, articles, and tutorials here:</p>
+        <br>
+
+
+        <p style="color: white;">
+          <strong>GitHub:</strong>
+          <a href="https://github.com/tubayalvacc" target="_blank" style="color: white; text-decoration: underline;">GitHub</a>
+        </p>
+        <p style="color: white;">
+          <strong>LinkedIn:</strong>
+          <a href="https://www.linkedin.com/in/tubayalvacc/" target="_blank" style="color: white; text-decoration: underline;">Linkedin</a>
+        </p>
+        <p style="color: white;">
+          <strong>YouTube:</strong>
+          <a href="https://www.youtube.com/@tubayalvacc" target="_blank" style="color: white; text-decoration: underline;">YouTube</a>
+        </p>
+
+
+      </div>
+    </section>
+
+
+
+    <section id="about" class="content-section">
+      <div class="cyber-card">
+        <h2>About Me</h2>
+        <p>I’m a tech enthusiast with a strong interest in robotics, electronics, and embedded systems. I love building Arduino-based robots and automation projects, experimenting with sensors, motors, and microcontroller systems to bring creative ideas to life.</p>
+        <br>
+        <p>During my academic journey, I also gained hands-on experience in full-stack web development through projects like <strong>Wheels N' Works</strong>, a complete vehicle workshop management system built with HTML, CSS, JavaScript, PHP, RESTful APIs, and MySQL. I enjoy combining web and hardware technologies in functional, practical projects.</p>
+        <br>
+        <p>Currently, I’m working on multifunction robotic vehicles, object-picking robotic arms, and interactive Arduino-based systems. My long-term ambition is to contribute to accessible STEM education and develop low-cost robotics kits and tools for students and hobbyists.</p>
+        <br>
+        <p>When I’m not wiring circuits or writing code, you’ll find me reading about emerging tech, planning new DIY builds, or spending meaningful time with my family and children.</p>
+      </div>
+    </section>
+
+
+
+    <section id="skills" class="content-section">
+      <div class="cyber-card">
+        <h2>Technical Arsenal</h2>
+        <div class="skill-grid">
+
+          <div class="skill-item">
+            <h3>HTML, CSS & JavaScript</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>React.js & Node.js</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>PHP (Core)</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 70%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>MongoDB & MySQL</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>Arduino Programming (C/C++)</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>Sensor & Motor Integration</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 78%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>RESTful API Development</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 70%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>Git & GitHub</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>Postman API Testing</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>Currently Learning: AI/ML Basics (Python)</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 45%"></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <h3>Currently Learning: IoT & Big Data Analysis</h3>
+            <div class="skill-level">
+              <div class="skill-progress" style="width: 50%"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <section id="projects" class="content-section">
+      <div class="cyber-card">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+
+          <div class="project-card">
+            <h3>Wheels N’ Works Web Application</h3>
+            <p>A comprehensive vehicle repair workshop management web application developed during my full-stack development internship. Designed to streamline repair shop operations for customers, shop owners, and super admins through dedicated role-based dashboards.</p>
+            <br>
+            <p>The application allows customers to book appointments, view booking status, and receive invoices. Shop owners can manage repair orders, customer information, mechanic assignments, repair status updates, and billing. Super admin panel provides shop performance monitoring, system management, and access control.</p>
+            <br>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+              <li>Multi-user system: Customer, Shop Owner (Admin), and Super Admin dashboards</li>
+              <li>Appointment booking, repair job management, invoicing</li>
+              <li>Secure login with session management for different roles</li>
+              <li>RESTful APIs for data handling and inter-page communication</li>
+              <li>Responsive front-end design for web and mobile browsers</li>
+            </ul>
+            <br>
+            <p><strong>My Role:</strong> Designed and developed the complete system architecture, front-end pages using HTML, CSS, and JavaScript, back-end logic in PHP, and MySQL database management. Integrated APIs for seamless data flow and implemented session-based access control. Uploaded and versioned code using GitHub for collaborative tracking.</p>
+            <br>
+            <p><strong>Tech Stack:</strong> HTML, CSS, JavaScript, PHP, MySQL, RESTful API, GitHub</p>
+          </div>
+
+          <div class="project-card">
+            <h3>Robotic Arm (Object Picker)</h3>
+            <p>An Arduino-controlled robotic arm capable of precise multi-axis movement using 6 servo motors, controlled via a servo motor driver module. The arm can pick and place small objects and perform automated sorting tasks. This was my first major robotics build involving mechanical assembly, servo synchronization, and power management.</p>
+            <br>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+              <li>6 servo motor-controlled joints for flexible movement</li>
+              <li>Servo driver module for stable multi-servo control</li>
+              <li>Custom-designed movement sequences via Arduino IDE</li>
+            </ul>
+            <br>
+            <p><strong>Tech Stack:</strong> Arduino IDE, MG996 Servo Motors, Servo Motor Driver, C++</p>
+          </div>
+
+          <div class="project-card">
+            <h3>Line Follower & Obstacle Avoiding Robot with Robotic Arm</h3>
+            <p>A multifunction Arduino-powered robot designed to follow a line using IR sensors, detect and avoid obstacles with ultrasonic sensors, and pick/place objects using a servo-based robotic arm. Includes an LCD screen for real-time status display of sensor readings and robot actions.</p>
+            <br>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+              <li>Line following using IR sensors</li>
+              <li>Obstacle detection using an ultrasonic distance sensor</li>
+              <li>Object-picking robotic arm with 6 servo motors</li>
+              <li>Johnson motors controlled via motor driver modules</li>
+              <li>LCD screen displaying system status and distance readings</li>
+            </ul>
+            <br>
+            <p><strong>Tech Stack:</strong> Arduino IDE, Johnson Motors, L298N Motor Driver, IR Sensors, Ultrasonic Sensor, 6 Servo Motors, LCD 16x2 Display, C++</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="contact" class="content-section">
+      <div class="cyber-card">
+        <h2>Initialize Contact Protocol</h2>
+
+        <form class="contact-form" onsubmit="sendMessage(event)">
+          <div class="form-group">
+            <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" class="form-input" placeholder="Email Address" required>
+          </div>
+          <div class="form-group">
+            <input type="text" name="project" class="form-input" placeholder="Project Type">
+          </div>
+          <div class="form-group">
+            <textarea name="message" class="form-input" rows="5" placeholder="Describe your vision..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Transmit Message</button>
+        </form>
+
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+// Enhanced Portfolio JavaScript with PHP Backend Integration
+console.log('Portfolio loaded - Contact form ready with PHP backend');
+
+// Navigation functionality
+function showSection(sectionId) {
+// Hide all sections
+document.querySelectorAll('.content-section').forEach(section => {
+section.classList.remove('active');
+});
+
+// Show selected section
+document.getElementById(sectionId).classList.add('active');
+
+// Update button styles
+document.querySelectorAll('.nav-btn').forEach(btn => {
+btn.style.background = 'linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1))';
+});
+
+// Find the clicked button and update its style
+const clickedBtn = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+if (clickedBtn) {
+clickedBtn.style.background = 'linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(255, 0, 255, 0.3))';
+}
+}
+
+// Enhanced contact form submission with PHP backend
+async function sendMessage(event) {
+event.preventDefault();
+const btn = event.target.querySelector('.submit-btn');
+const originalText = btn.textContent;
+
+// Get form data
+const formData = new FormData(event.target);
+const name = formData.get('name');
+const email = formData.get('email');
+const project = formData.get('project') || formData.get('project_type') || formData.get('subject');
+const message = formData.get('message');
+
+// Validate form
+if (!name || !email || !message) {
+showNotification('Please fill in all required fields!', 'error');
+return;
+}
+
+// Email validation
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(email)) {
+showNotification('Please enter a valid email address!', 'error');
+return;
+}
+
+btn.textContent = 'TRANSMITTING...';
+btn.style.background = 'linear-gradient(45deg, #00ff7f, #00ffff)';
+btn.disabled = true;
+
+// Add loading spinner
+const spinner = document.createElement('div');
+spinner.innerHTML = '⚡';
+spinner.style.animation = 'spin 1s linear infinite';
+btn.appendChild(spinner);
+
+try {
+// Prepare data for PHP backend
+const contactData = {
+name: name,
+email: email,
+subject: project || 'Portfolio Contact',
+message: message,
+timestamp: new Date().toISOString()
+};
+
+// Send to PHP backend
+const response = await fetch('/ContactForm.php', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(contactData)
+});
+
+const result = await response.json();
+
+if (result.success) {
+btn.textContent = 'MESSAGE SENT!';
+btn.style.background = 'linear-gradient(45deg, #00ff7f, #32cd32)';
+showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+
+// Reset form after success
+setTimeout(() => {
+event.target.reset();
+btn.textContent = originalText;
+btn.style.background = 'linear-gradient(45deg, #00ffff, #ff00ff)';
+btn.disabled = false;
+if (spinner.parentNode) {
+btn.removeChild(spinner);
+}
+}, 3000);
+} else {
+throw new Error(result.message || 'Failed to send message');
+}
+
+} catch (error) {
+console.error('Error sending message:', error);
+btn.textContent = 'TRANSMISSION FAILED';
+btn.style.background = 'linear-gradient(45deg, #ff0000, #ff4500)';
+showNotification(error.message || 'Failed to send message. Please try again.', 'error');
+
+// Reset button after error
+setTimeout(() => {
+btn.textContent = originalText;
+btn.style.background = 'linear-gradient(45deg, #00ffff, #ff00ff)';
+btn.disabled = false;
+if (spinner.parentNode) {
+btn.removeChild(spinner);
+}
+}, 3000);
+}
+}
+
+// Enhanced notification system
+function showNotification(message, type) {
+const notification = document.createElement('div');
+notification.className = `notification ${type}`;
+notification.innerHTML = `
+<div style="display: flex; align-items: center; gap: 10px;">
+  <span>${type === 'success' ? '✅' : '❌'}</span>
+  <span>${message}</span>
+</div>
+`;
+
+notification.style.cssText = `
+position: fixed;
+top: 20px;
+right: 20px;
+padding: 15px 20px;
+border-radius: 8px;
+color: white;
+font-weight: bold;
+z-index: 10000;
+animation: slideIn 0.3s ease;
+max-width: 400px;
+border: 1px solid ${type === 'success' ? '#00ff7f' : '#ff0000'};
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+${type === 'success' ?
+'background: linear-gradient(45deg, #00ff7f, #32cd32);' :
+'background: linear-gradient(45deg, #ff0000, #ff4500);'}
+`;
+
+document.body.appendChild(notification);
+
+setTimeout(() => {
+notification.style.animation = 'slideOut 0.3s ease';
+setTimeout(() => {
+if (notification.parentNode) {
+document.body.removeChild(notification);
+}
+}, 300);
+}, 5000);
+}
+
+// Matrix rain effect
+function createMatrixRain() {
+const matrixContainer = document.getElementById('matrixRain');
+if (!matrixContainer) return;
+
+const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+
+for (let i = 0; i < 50; i++) {
+const char = document.createElement('div');
+char.className = 'matrix-char';
+char.textContent = characters[Math.floor(Math.random() * characters.length)];
+char.style.left = Math.random() * 100 + '%';
+char.style.animationDelay = Math.random() * 3 + 's';
+char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+matrixContainer.appendChild(char);
+}
+}
+
+// Cyber glitch effect for text
+function addGlitchEffect() {
+const logo = document.querySelector('.logo');
+if (logo) {
+setInterval(() => {
+if (Math.random() < 0.1) {
+logo.style.textShadow = '2px 0 #ff00ff, -2px 0 #00ffff';
+setTimeout(() => {
+logo.style.textShadow = '0 0 20px rgba(0, 255, 255, 0.5)';
+}, 100);
+}
+}, 2000);
+}
+}
+
+// Floating particles
+function createFloatingParticles() {
+for (let i = 0; i < 20; i++) {
+const particle = document.createElement('div');
+particle.style.position = 'fixed';
+particle.style.width = '2px';
+particle.style.height = '2px';
+particle.style.background = '#00ffff';
+particle.style.borderRadius = '50%';
+particle.style.opacity = '0.6';
+particle.style.pointerEvents = 'none';
+particle.style.zIndex = '-1';
+particle.style.left = Math.random() * 100 + '%';
+particle.style.top = Math.random() * 100 + '%';
+
+const animation = particle.animate([
+{ transform: 'translate(0, 0) scale(0.5)', opacity: 0.6 },
+{ transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) scale(1.5)`, opacity: 0 }
+], {
+duration: Math.random() * 3000 + 2000,
+iterations: Infinity,
+direction: 'alternate'
+});
+
+document.body.appendChild(particle);
+}
+}
+
+// Form validation helper
+function validateForm(name, email, message) {
+const errors = [];
+
+if (!name || name.trim().length < 2) {
+errors.push('Name must be at least 2 characters long');
+}
+
+if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+errors.push('Please enter a valid email address');
+}
+
+if (!message || message.trim().length < 10) {
+errors.push('Message must be at least 10 characters long');
+}
+
+return errors;
+}
+
+// Add CSS for animations
+function addAnimationStyles() {
+const style = document.createElement('style');
+style.textContent = `
+@keyframes slideIn {
+from {
+transform: translateX(100%);
+opacity: 0;
+}
+to {
+transform: translateX(0);
+opacity: 1;
+}
+}
+
+@keyframes slideOut {
+from {
+transform: translateX(0);
+opacity: 1;
+}
+to {
+transform: translateX(100%);
+opacity: 0;
+}
+}
+
+@keyframes spin {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+
+.matrix-char {
+  position: absolute;
+  color: #00ffff; /* cyan blue now */
+  font-family: monospace;
+  font-size: 14px;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+
+@keyframes fall {
+0% {
+transform: translateY(-100vh);
+opacity: 0;
+}
+10% {
+opacity: 1;
+}
+90% {
+opacity: 1;
+}
+100% {
+transform: translateY(100vh);
+opacity: 0;
+}
+}
+`;
+document.head.appendChild(style);
+}
+
+// Initialize effects
+document.addEventListener('DOMContentLoaded', function() {
+addAnimationStyles();
+createMatrixRain();
+addGlitchEffect();
+createFloatingParticles();
+
+// Add hover effects
+document.querySelectorAll('.nav-btn, .cyber-card, .project-card').forEach(element => {
+element.addEventListener('mouseenter', function() {
+this.style.transform = 'translateY(-5px) scale(1.02)';
+this.style.transition = 'all 0.3s ease';
+});
+
+element.addEventListener('mouseleave', function() {
+this.style.transform = 'translateY(0) scale(1)';
+});
+});
+
+// Add focus effects for form inputs
+document.querySelectorAll('input, textarea, select').forEach(input => {
+input.addEventListener('focus', function() {
+this.style.borderColor = '#00ffff';
+this.style.boxShadow = '0 0 10px rgba(0, 255, 255, 0.3)';
+});
+
+input.addEventListener('blur', function() {
+this.style.borderColor = '';
+this.style.boxShadow = '';
+});
+});
+});
+
+// Enhanced cyberpunk cursor trail
+document.addEventListener('mousemove', function(e) {
+if (Math.random() < 0.1) {
+const trail = document.createElement('div');
+trail.style.position = 'fixed';
+trail.style.left = e.clientX + 'px';
+trail.style.top = e.clientY + 'px';
+trail.style.width = '4px';
+trail.style.height = '4px';
+trail.style.background = '#00ffff';
+trail.style.borderRadius = '50%';
+trail.style.pointerEvents = 'none';
+trail.style.zIndex = '9999';
+trail.style.opacity = '0.8';
+
+document.body.appendChild(trail);
+
+setTimeout(() => {
+trail.style.opacity = '0';
+trail.style.transform = 'scale(0)';
+trail.style.transition = 'all 0.5s ease';
+setTimeout(() => {
+if (trail.parentNode) {
+document.body.removeChild(trail);
+}
+}, 500);
+}, 100);
+}
+});
+
+// Network status indicator
+function checkNetworkStatus() {
+const indicator = document.createElement('div');
+indicator.id = 'network-status';
+indicator.style.cssText = `
+position: fixed;
+top: 10px;
+left: 10px;
+padding: 5px 10px;
+border-radius: 5px;
+font-size: 12px;
+z-index: 10000;
+transition: all 0.3s ease;
+`;
+
+function updateStatus() {
+if (navigator.onLine) {
+indicator.textContent = '🟢 ONLINE';
+indicator.style.background = 'rgba(0, 255, 0, 0.2)';
+indicator.style.color = '#00ff00';
+} else {
+indicator.textContent = '🔴 OFFLINE';
+indicator.style.background = 'rgba(255, 0, 0, 0.2)';
+indicator.style.color = '#ff0000';
+}
+}
+
+document.body.appendChild(indicator);
+updateStatus();
+
+window.addEventListener('online', updateStatus);
+window.addEventListener('offline', updateStatus);
+}
+
+// Initialize network status
+document.addEventListener('DOMContentLoaded', checkNetworkStatus);
+
+</script>
+</body>
+</html>
